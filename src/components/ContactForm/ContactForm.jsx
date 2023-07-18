@@ -3,26 +3,17 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
 import { addContact, fetchContacts } from '../redux/Operations';
+import { getContacts } from 'components/redux/Selectors';
 
 export const ContactForm = () => {
+  const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const dispatch = useDispatch();
-  const getContacts = state => state.contacts.contacts;
-  const contacts = useSelector(getContacts);
 
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
-
-  const handleAddContact = (name, number) => {
-    let contactExisting = contacts.find(item => item.name === name);
-    if (contactExisting) {
-      return alert(`${name} is already in contacts`);
-    }
-    const newUser = { name, number, id: nanoid() };
-    dispatch(addContact(newUser));
-  };
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -33,18 +24,20 @@ export const ContactForm = () => {
     }
   };
 
+  const handleAddContact = (name, number) => {
+    let contactExisting = contacts.find(item => item.name === name);
+    if (contactExisting) {
+      return alert(`${name} is already in contacts`);
+    }
+    const newUser = { name, number, id: nanoid() };
+    dispatch(addContact(newUser));
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
-
-    const contactExisting = contacts.includes(name);
-    if (contactExisting) {
-      alert(`${name} is already in contacts`);
-      setName('');
-    } else {
-      handleAddContact(name, number);
-      setName('');
-      setNumber('');
-    }
+    handleAddContact(name, number);
+    setName('');
+    setNumber('');
   };
 
   return (

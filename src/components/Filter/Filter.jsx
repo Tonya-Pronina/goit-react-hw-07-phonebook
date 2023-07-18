@@ -2,10 +2,9 @@ import React from 'react';
 import css from 'components/Filter/Filter.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { setFilter } from '../redux/FilterSlice';
+import { getFilter } from 'components/redux/Selectors';
 
-const getFilter = state => state.filter;
-
-export default function Filter() {
+export const Filter = () => {
   const filter = useSelector(getFilter);
   const dispatch = useDispatch();
 
@@ -28,4 +27,4 @@ export default function Filter() {
       />
     </div>
   );
-}
+};
