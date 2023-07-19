@@ -24,10 +24,10 @@
 // export const contactsReducer = contactsSlice.reducer;
 
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContacts, addContact, deleteContact } from './Operations';
+import { fetchContacts, addContact, deleteContact } from './operations';
 
 const initialState = {
-  items: [],
+  contacts: [],
   loading: false,
   error: null,
 };
@@ -84,7 +84,7 @@ export const contactsSlice = createSlice({
       })
       .addCase(fetchContacts.fulfilled, (store, { payload }) => {
         store.loading = false;
-        store.items = payload;
+        store.contacts = payload;
       })
       .addCase(fetchContacts.rejected, (store, { payload }) => {
         store.loading = true;
@@ -95,7 +95,7 @@ export const contactsSlice = createSlice({
       })
       .addCase(addContact.fulfilled, (store, { payload }) => {
         store.loading = false;
-        store.items.push(payload);
+        store.contacts.push(payload);
         console.log(payload);
       })
       .addCase(addContact.rejected, (store, { payload }) => {
@@ -107,7 +107,7 @@ export const contactsSlice = createSlice({
       })
       .addCase(deleteContact.fulfilled, (store, { payload }) => {
         store.loading = false;
-        store.items = store.items.filter(item => item.id !== payload);
+        store.contacts = store.contacts.filter(contact => contact.id !== payload);
       })
       .addCase(deleteContact.rejected, (store, { payload }) => {
         store.loading = false;

@@ -38,8 +38,8 @@
 // };
 
 import { useSelector, useDispatch } from 'react-redux';
-import { getContacts, getFilter } from '../redux/Selectors';
-import { deleteContact } from '../redux/Operations';
+import { getContacts, getFilter } from '../redux/selectors';
+import { deleteContact } from '../redux/operations';
 import css from './ContactList.module.css';
 import ContactListItem from 'components/ContactListItem/ContactListItem';
 
